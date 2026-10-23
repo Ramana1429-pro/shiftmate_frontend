@@ -47,7 +47,8 @@ export default function Attendance() {
   return (
     <>
       <Header title="Live attendance" subtitle={ev.data?.title} />
-      <Screen edges={['bottom']} contentStyle={{ paddingTop: 0 }} onRefresh={() => void q.refetch()} refreshing={q.isRefetching}>
+      <View style={{ height: 1, backgroundColor: colors.border }} />
+      <Screen edges={['bottom']} contentStyle={{ paddingTop: 16, gap: 14 }} onRefresh={() => void q.refetch()} refreshing={q.isRefetching}>
         <View style={{ flexDirection: 'row', gap: 10 }}>
           <Summary label="Present" value={count('present', 'late', 'completed')} color={colors.successDark} bg={colors.successSoft} testID="sum-present" />
           <Summary label="Not arrived" value={count('not_arrived')} color={colors.accentDark} bg={colors.accentSoft} testID="sum-missing" />

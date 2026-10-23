@@ -20,7 +20,8 @@ export default function VenueQr() {
   return (
     <>
       <Header title="Venue QR code" subtitle={ev.data?.title} />
-      <Screen edges={['bottom']} contentStyle={{ paddingTop: 8 }}>
+      <View style={{ height: 1, backgroundColor: colors.border }} />
+      <Screen edges={['bottom']} contentStyle={{ paddingTop: 16, gap: 14 }}>
         {q.isPending ? <SkeletonList count={1} /> : q.isError ? <ErrorState message={q.error.message} onRetry={() => void q.refetch()} /> : (
           <Card>
             <View style={{ alignItems: 'center', gap: 16, paddingVertical: 16 }} testID="qr-card">

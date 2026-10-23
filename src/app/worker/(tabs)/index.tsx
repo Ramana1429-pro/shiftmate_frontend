@@ -20,7 +20,7 @@ import { DateStrip } from '../../../components/TimeAndDate';
 import { useEventFeed } from '../../../hooks/queries';
 import { useCoords } from '../../../hooks/useCoords';
 import { publicMediaUrl } from '../../../lib/supabase';
-import { colors, GUTTER } from '../../../theme';
+import { colors, fonts, GUTTER } from '../../../theme';
 import { eventLook, EVENT_TYPES } from '../../../utils/eventStyle';
 import { addDays, countdown, firstName, formatTime, isSameDay, rupees, startOfDay } from '../../../utils/format';
 import { useNow } from '../../../utils/useNow';
@@ -82,9 +82,11 @@ export default function WorkerHome() {
   const header = (
     <View style={{ gap: 16, paddingBottom: 8 }}>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
-        <Avatar name={profile?.full_name ?? '?'} uri={publicMediaUrl(profile?.photo_path)} size={48} />
+        <Avatar name={profile?.full_name ?? '?'} uri={publicMediaUrl(profile?.photo_path)} size={42} />
         <View style={{ flex: 1 }}>
-          <Text variant="h2" testID="greeting">Hi, {firstName(profile?.full_name ?? '')} 👋</Text>
+          <Text variant="h2" style={{ fontSize: 17, fontFamily: fonts.bold }} testID="greeting">
+            Hi, {firstName(profile?.full_name ?? '')} 👋
+          </Text>
           <Pressable onPress={refreshCoords} style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }} testID="location-chip">
             <Navigation size={13} color={colors.primary} />
             <Text variant="small" color={colors.primary}>
@@ -93,6 +95,8 @@ export default function WorkerHome() {
           </Pressable>
         </View>
       </View>
+
+      <View style={{ height: 1, backgroundColor: colors.border, marginVertical: -2 }} />
 
       <View style={{ flexDirection: 'row', gap: 8, alignItems: 'flex-end' }}>
         <View style={{ flex: 1 }}>

@@ -15,6 +15,7 @@ export function Card({ children, onPress, style, padded = true, testID }: CardPr
   const base: ViewStyle = {
     backgroundColor: colors.card,
     borderRadius: radius.card,
+    borderWidth: 0,
     padding: padded ? 16 : 0,
     ...shadow.card,
   };
@@ -29,7 +30,14 @@ export function Card({ children, onPress, style, padded = true, testID }: CardPr
     <Pressable
       testID={testID}
       onPress={onPress}
-      style={({ pressed }) => [base, { opacity: pressed ? 0.92 : 1, transform: [{ scale: pressed ? 0.995 : 1 }] }, style]}
+      style={({ pressed }) => [
+        base,
+        {
+          opacity: pressed ? 0.92 : 1,
+          transform: [{ scale: pressed ? 0.985 : 1 }],
+        },
+        style,
+      ]}
     >
       {children}
     </Pressable>

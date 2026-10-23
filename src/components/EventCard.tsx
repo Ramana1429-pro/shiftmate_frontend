@@ -33,27 +33,38 @@ export function EventCard({
   const more = event.shifts.length - 1;
 
   return (
-    <Card onPress={onPress} testID={`event-${event.id}`}>
-      <View style={{ flexDirection: 'row', gap: 12 }}>
-        <View style={{ width: 52, height: 52, borderRadius: 14, backgroundColor: look.soft, alignItems: 'center', justifyContent: 'center' }}>
-          <Icon size={26} color={look.color} strokeWidth={1.8} />
+    <Card onPress={onPress} testID={`event-${event.id}`} style={{ padding: 18 }}>
+      <View style={{ flexDirection: 'row', gap: 14 }}>
+        <View
+          style={{
+            width: 54,
+            height: 54,
+            borderRadius: 16,
+            backgroundColor: look.soft,
+            borderWidth: 1,
+            borderColor: look.color + '25',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Icon size={26} color={look.color} strokeWidth={2} />
         </View>
-        <View style={{ flex: 1, gap: 4 }}>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 8 }}>
-            <Text variant="bodyMedium" style={{ flex: 1, fontFamily: 'Inter_600SemiBold' }} numberOfLines={1}>
+        <View style={{ flex: 1, gap: 5 }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
+            <Text variant="h3" style={{ flex: 1, fontSize: 16, fontFamily: 'Inter_700Bold' }} numberOfLines={1}>
               {event.title}
             </Text>
             {urgent ? <Badge label="Urgent" tone="warning" icon={Zap} /> : null}
           </View>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
             <Clock size={13} color={colors.textMuted} />
-            <Text variant="small" muted>
+            <Text variant="small" muted style={{ fontSize: 13 }}>
               {formatDate(event.start_time)} · {formatTime(event.start_time)}
             </Text>
           </View>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
             <MapPin size={13} color={colors.textMuted} />
-            <Text variant="small" muted numberOfLines={1} style={{ flex: 1 }}>
+            <Text variant="small" muted numberOfLines={1} style={{ flex: 1, fontSize: 13 }}>
               {[event.venue_name, event.city].filter(Boolean).join(', ') || 'Location on map'}
               {event.distance_km != null ? `  ·  ${event.distance_km} km` : ''}
             </Text>
@@ -61,13 +72,20 @@ export function EventCard({
         </View>
       </View>
 
-      <View style={{ flexDirection: 'row', alignItems: 'baseline', justifyContent: 'space-between', marginTop: 14 }}>
-        <Text variant="bodyMedium" style={{ fontFamily: 'Inter_600SemiBold' }}>
-          {top ? `${top.role_name} · ${rupees(top.pay_amount)}` : ''}
-          {more > 0 ? <Text variant="small" muted>{`  +${more} more role${more > 1 ? 's' : ''}`}</Text> : null}
-        </Text>
+      <View style={{ height: 1, backgroundColor: colors.border, marginVertical: 12 }} />
+
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+        <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 6 }}>
+          <Text variant="bodyMedium" style={{ fontFamily: 'Inter_700Bold', color: colors.primary, fontSize: 16 }}>
+            {top ? rupees(top.pay_amount) : ''}
+          </Text>
+          <Text variant="small" muted>
+            {top ? `· ${top.role_name}` : ''}
+            {more > 0 ? `  (+${more} more)` : ''}
+          </Text>
+        </View>
         {urgent ? (
-          <Text variant="caption" color={colors.accentDark}>
+          <Text variant="caption" color={colors.accentDark} style={{ fontFamily: 'Inter_600SemiBold' }}>
             Starts in {countdown(msLeft)}
           </Text>
         ) : null}

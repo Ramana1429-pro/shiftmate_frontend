@@ -2,7 +2,7 @@ import type { LucideIcon } from 'lucide-react-native';
 import React from 'react';
 import { Pressable } from 'react-native';
 
-import { colors, fonts } from '../theme';
+import { colors, fonts, shadow } from '../theme';
 import { Text } from './Text';
 
 interface ChipProps {
@@ -21,21 +21,25 @@ export function Chip({ label, selected, onPress, icon: Icon, testID }: ChipProps
       accessibilityRole="button"
       accessibilityState={{ selected: !!selected }}
       onPress={onPress}
-      style={({ pressed }) => ({
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 6,
-        height: 36,
-        paddingHorizontal: 14,
-        borderRadius: 999,
-        backgroundColor: selected ? colors.primary : colors.card,
-        borderWidth: 1,
-        borderColor: selected ? colors.primary : colors.border,
-        opacity: pressed ? 0.85 : 1,
-      })}
+      style={({ pressed }) => [
+        {
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: 6,
+          height: 36,
+          paddingHorizontal: 15,
+          borderRadius: 999,
+          backgroundColor: selected ? colors.primary : colors.card,
+          borderWidth: 1,
+          borderColor: selected ? colors.primary : colors.border,
+          opacity: pressed ? 0.85 : 1,
+          transform: [{ scale: pressed ? 0.97 : 1 }],
+        },
+        selected ? shadow.glowPrimary : shadow.sm,
+      ]}
     >
-      {Icon ? <Icon size={14} color={fg} strokeWidth={2.2} /> : null}
-      <Text style={{ color: fg, fontFamily: fonts.medium, fontSize: 13 }}>{label}</Text>
+      {Icon ? <Icon size={14} color={fg} strokeWidth={2.4} /> : null}
+      <Text style={{ color: fg, fontFamily: fonts.semibold, fontSize: 13 }}>{label}</Text>
     </Pressable>
   );
 }

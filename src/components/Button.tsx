@@ -2,7 +2,7 @@ import type { LucideIcon } from 'lucide-react-native';
 import React from 'react';
 import { ActivityIndicator, Pressable, StyleSheet, View, type ViewStyle } from 'react-native';
 
-import { colors, fonts, radius } from '../theme';
+import { colors, fonts, radius, shadow } from '../theme';
 import { Text } from './Text';
 
 type Variant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'accent';
@@ -21,16 +21,16 @@ interface ButtonProps {
   testID?: string;
 }
 
-const palette: Record<Variant, { bg: string; fg: string; border?: string }> = {
-  primary: { bg: colors.primary, fg: colors.white },
-  accent: { bg: colors.accent, fg: colors.text },
-  secondary: { bg: colors.primarySoft, fg: colors.primary },
-  outline: { bg: colors.card, fg: colors.text, border: colors.borderStrong },
+const palette: Record<Variant, { bg: string; fg: string; border?: string; shadow?: ViewStyle }> = {
+  primary: { bg: colors.primary, fg: colors.white, shadow: shadow.glowPrimary },
+  accent: { bg: colors.accent, fg: colors.white, shadow: shadow.glowAccent },
+  secondary: { bg: colors.primarySoft, fg: colors.primary, border: '#E0E7FF' },
+  outline: { bg: colors.card, fg: colors.text, border: colors.borderStrong, shadow: shadow.sm },
   ghost: { bg: 'transparent', fg: colors.primary },
-  danger: { bg: colors.dangerSoft, fg: colors.dangerDark },
+  danger: { bg: colors.dangerSoft, fg: colors.dangerDark, border: '#FECACA' },
 };
 
-const heights: Record<Size, number> = { sm: 38, md: 48, lg: 54 };
+const heights: Record<Size, number> = { sm: 40, md: 50, lg: 54 };
 
 export function Button({
   title,
@@ -54,12 +54,13 @@ export function Button({
       onPress={inactive ? undefined : onPress}
       style={({ pressed }) => [
         styles.base,
+        p.shadow,
         {
           height: heights[size],
           backgroundColor: p.bg,
           borderColor: p.border ?? 'transparent',
           borderWidth: p.border ? 1 : 0,
-          opacity: disabled ? 0.45 : pressed ? 0.85 : 1,
+          opacity: disabled ? 0.45 : pressed ? 0.88 : 1,
           transform: [{ scale: pressed && !inactive ? 0.98 : 1 }],
           alignSelf: fullWidth ? 'stretch' : 'flex-start',
           paddingHorizontal: size === 'sm' ? 14 : 20,
@@ -71,8 +72,10 @@ export function Button({
         <ActivityIndicator color={p.fg} />
       ) : (
         <View style={styles.row}>
-          {Icon ? <Icon size={size === 'sm' ? 16 : 18} color={p.fg} strokeWidth={2.2} /> : null}
-          <Text style={{ color: p.fg, fontFamily: fonts.semibold, fontSize: size === 'sm' ? 13 : 15 }}>{title}</Text>
+          {Icon ? <Icon size={size === 'sm' ? 17 : 19} color={p.fg} strokeWidth={2.4} /> : null}
+          <Text style={{ color: p.fg, fontFamily: fonts.semibold, fontSize: size === 'sm' ? 13 : 15, letterSpacing: 0.2 }}>
+            {title}
+          </Text>
         </View>
       )}
     </Pressable>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 
-import { colors } from '../theme';
+import { colors, fonts } from '../theme';
 import { Text } from './Text';
 
 /** Slots progress: green while there is room, amber when nearly full, red when full. */
@@ -11,13 +11,18 @@ export function SlotsProgressBar({ filled, total, showLabel = true }: { filled: 
   const color = left === 0 ? colors.danger : pct >= 0.7 ? colors.accent : colors.success;
   return (
     <View style={{ gap: 6 }}>
-      <View style={{ height: 6, borderRadius: 3, backgroundColor: colors.border, overflow: 'hidden' }}>
-        <View style={{ width: `${pct * 100}%`, height: 6, borderRadius: 3, backgroundColor: color }} />
+      <View style={{ height: 7, borderRadius: 4, backgroundColor: '#E2E8F0', overflow: 'hidden' }}>
+        <View style={{ width: `${pct * 100}%`, height: 7, borderRadius: 4, backgroundColor: color }} />
       </View>
       {showLabel ? (
-        <Text variant="caption" color={left === 0 ? colors.dangerDark : colors.textMuted}>
-          {left === 0 ? 'Full' : `${left} of ${total} slots left`}
-        </Text>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Text variant="caption" color={left === 0 ? colors.dangerDark : colors.textMuted} style={{ fontFamily: fonts.medium }}>
+            {left === 0 ? 'All shifts filled' : `${left} of ${total} slots left`}
+          </Text>
+          <Text variant="caption" muted style={{ fontFamily: fonts.medium, fontSize: 11 }}>
+            {Math.round(pct * 100)}%
+          </Text>
+        </View>
       ) : null}
     </View>
   );
