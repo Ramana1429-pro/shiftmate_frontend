@@ -1,0 +1,71 @@
+{
+  "expo": {
+    "name": "ShiftMate",
+    "slug": "shiftmate",
+    "scheme": "shiftmate",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#4F46E5"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.yourcompany.shiftmate",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "ShiftMate uses your location to show shifts near you and to check you in at the venue.",
+        "NSCameraUsageDescription": "ShiftMate uses the camera to scan the venue QR code at check-in.",
+        "NSPhotoLibraryUsageDescription": "ShiftMate needs your photos so you can set a profile picture."
+      }
+    },
+    "android": {
+      "package": "com.yourcompany.shiftmate",
+      "adaptiveIcon": {
+        "backgroundColor": "#4F46E5",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "CAMERA"
+      ],
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "output": "single",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "ShiftMate uses your location to show shifts near you and to check you in at the venue."
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "ShiftMate uses the camera to scan the venue QR code at check-in."
+        }
+      ],
+      "expo-notifications",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "ShiftMate needs your photos so you can set a profile picture."
+        }
+      ],
+      "expo-font"
+    ],
+    "experiments": {
+      "typedRoutes": false
+    }
+  }
+}
